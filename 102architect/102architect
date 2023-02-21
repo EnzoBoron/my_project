@@ -1,0 +1,207 @@
+#!/bin/node
+/*
+** EPITECH PROJECT, 2022
+** B-MAT-100-LIL-1-1-102architect-enzo.boron
+** File description:
+** 102architect
+*/
+
+const process = require("process");
+const av = process.argv;
+const ac = process.argv.length;
+const fs = require('fs');
+
+matrix = [[1,0,0],[0,1,0],[0,0,1]];
+let temp_matrix = [[1,0,0],[0,1,0],[0,0,1]];
+tab = [];
+x = 0;
+y = 0;
+let c = 0;
+
+function radians_to_degrees(radians)
+{
+  var pi = Math.PI;
+  return radians * (180/pi);
+}
+
+function degrees_to_radians(degree)
+{
+  var pi = Math.PI;
+  return (degree * pi)/180.0;
+}
+
+function help_flag()
+{
+    console.log(fs.readFileSync("help.txt", "utf8"));
+    return;
+}
+const transmatrix = (matrix1, matrix2) => {
+let result = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            for (let k = 0; k < 3; k++) {
+                result[i][j] += matrix1[i][k] * matrix2[k][j];
+            }
+        }
+    }
+    temp_matrix = result;
+}
+
+function t_flag(i)
+{
+    if (!isNaN(av[i]) && !isNaN(av[i + 1]) && isNaN(av[i + 2])) {
+
+        console.log("Translation along vector ("+av[i]+", "+av[i + 1]+")");
+        x = Number(x) + Number(av[i]);
+        y = Number(y) + Number(av[i + 1]);
+        let matrix_flag = [[1,0,0],[0,1,0],[0,0,1]];
+        matrix_flag[0][2] = av[i];
+        matrix_flag[1][2] = av[i + 1];
+        tab[c] = matrix_flag;
+        c++;
+    } else {
+        console.error("Error:\nWrong argument after the flag");
+        process.exit(84);
+    }
+}
+
+function z_flag(i)
+{
+    if (!isNaN(av[i]) && !isNaN(av[i + 1]) && isNaN(av[i + 2])) {
+        console.log("Scaling by factors "+av[i]+" and "+av[i + 1]);
+        x = Number(x) * Number(av[i]);
+        y = Number(y) * Number(av[i + 1]);
+        x = Number.parseFloat(x).toFixed(2);
+        y = Number.parseFloat(y).toFixed(2);
+        let matrix_flag = [[1,0,0],[0,1,0],[0,0,1]];
+        matrix_flag[0][0] = av[i];
+        matrix_flag[1][1] = av[i + 1];
+        tab[c] = matrix_flag;
+        c++;
+    } else {
+        console.error("Error:\nWrong argument after the flag");
+        process.exit(84);
+    }
+}
+
+function r_flag(i)
+{
+    if (!isNaN(av[i]) && isNaN(av[i + 1])) {
+        console.log("Rotation by a "+av[i]+" degree angle");
+        deg = degrees_to_radians(av[i]);
+        let newx;
+        let newy;
+        let temp = [newx, newy];
+        temp[0] = x;
+        temp[1] = y;
+        x = (Math.cos(deg) * temp[0]) - (Math.sin(deg) * temp[1]);
+        y = (Math.sin(deg) * temp[0]) + (Math.cos(deg) * temp[1]);
+        let matrix_flag = [[1,0,0],[0,1,0],[0,0,1]];
+        matrix_flag[0][0] = Math.cos(deg);
+        matrix_flag[0][1] = -Math.sin(deg);
+        matrix_flag[1][0] = Math.sin(deg);
+        matrix_flag[1][1] = Math.cos(deg);
+        tab[c] = matrix_flag;
+        c++;
+    } else {
+        console.error("Error:\nWrong argument after the flag");
+        process.exit(84);
+    }
+}
+
+function s_flag(i)
+{
+    if (!isNaN(av[i]) && isNaN(av[i + 1])) {
+        console.log("Reflection over an axis with an inclination angle of "+av[i]+" degrees");
+        deg = degrees_to_radians(av[i]);
+        let newx;
+        let newy;
+        let temp = [newx, newy];
+        temp[0] = x;
+        temp[1] = y;
+        x = (temp[0] * Math.cos((2 * (deg))) + (temp[1] * Math.sin((2 * (deg)))));
+        y = (temp[0] * Math.sin((2 * (deg))) - (temp[1] * Math.cos((2 * (deg)))));
+        let matrix_flag = [[1,0,0],[0,1,0],[0,0,1]];
+        matrix_flag[0][0] = Math.cos(2 * (deg));
+        matrix_flag[0][1] = Math.sin(2 * (deg));
+        matrix_flag[1][0] = Math.sin(2 * (deg));
+        matrix_flag[1][1] = -1 * Math.cos(2 * (deg));
+        tab[c] = matrix_flag;
+        c++;
+    } else {
+        console.error("Error:\nWrong argument after the flag");
+        process.exit(84);
+    }
+}
+
+function check_flag(i)
+{
+    if (av[i][0] == '-' && av[i][1] == 't' && av[i].length == 2) {
+        t_flag(i + 1);
+        return 3;
+    } else if (av[i][0] == '-' && av[i][1] == 'z' && av[i].length == 2) {
+        z_flag(i + 1);
+        return 3;
+    } else if (av[i][0] == '-' && av[i][1] == 'r' && av[i].length == 2) {
+        r_flag(i + 1);
+        return 2;
+    } else if (av[i][0] == '-' && av[i][1] == 's' && av[i].length == 2) {
+        s_flag(i + 1);
+        return 2;
+    } else {
+        console.error("Error: Not a flag\nTry -h");
+        process.exit(84);
+    }
+}
+
+function verif_fpos()
+{
+    if (!isNaN(av[2]) && !isNaN(av[3])) {
+        x = Number(av[2]);
+        y = Number(av[3]);
+        for (i = 4; i < ac;) {
+            i = i + check_flag(i);
+        }
+        for (i = tab.length; i > 0; i--) {
+            transmatrix(temp_matrix, tab[i - 1]);
+        }
+        console.log(Number.parseFloat(temp_matrix[0][0]).toFixed(2)+"    "+
+        Number.parseFloat(temp_matrix[0][1]).toFixed(2).replace(/^-0.00$/, '0.00')+"    "+
+        Number.parseFloat(temp_matrix[0][2]).toFixed(2).replace(/^-0.00$/, '0.00')+"\n"+
+        Number.parseFloat(temp_matrix[1][0]).toFixed(2).replace(/^-0.00$/, '0.00')+"    "+
+        Number.parseFloat(temp_matrix[1][1]).toFixed(2).replace(/^-0.00$/, '0.00')+"    "+
+        Number.parseFloat(temp_matrix[1][2]).toFixed(2).replace(/^-0.00$/, '0.00')+"\n"+
+        Number.parseFloat(temp_matrix[2][0]).toFixed(2).replace(/^-0.00$/, '0.00')+"    "+
+        Number.parseFloat(temp_matrix[2][1]).toFixed(2).replace(/^-0.00$/, '0.00')+"    "+
+        Number.parseFloat(temp_matrix[2][2]).toFixed(2).replace(/^-0.00$/, '0.00'))
+        console.log("("+Number.parseFloat(av[2]).toFixed(2).replace(/^-0.00$/, '0.00')
+        +", "+Number.parseFloat(av[3]).toFixed(2).replace(/^-0.00$/, '0.00')+") => ("
+        +Number.parseFloat(x).toFixed(2).replace(/^-0.00$/, '0.00')+", "
+        +Number.parseFloat(y).toFixed(2).replace(/^-0.00$/, '0.00')+")");
+    } else {
+    console.error("Error:\n Not a number before the flag");
+    process.exit(84);
+    }
+}
+
+function main ()
+{
+    if (ac == 3) {
+        if (av[2][0] == '-' && av[2][1] == 'h') {
+                help_flag();
+            process.exit(0);
+        } else {
+            console.error("Error\ntry -h");
+            process.exit(84);
+        }
+    }
+    if (ac >= 5) {
+        verif_fpos();
+    } else {
+        console.error("Less argument");
+        process.exit(84);
+    }
+    process.exit(0);
+}
+
+main();
