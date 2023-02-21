@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "my_hunter.h": "c",
+        "vector2.h": "c"
+    }
+}
