@@ -71,4 +71,6 @@
     void is_clic_medium(sfVector2i position_mouse, element *e);
     void gameplay_medium(element *e);
     void gameplay_hard(element *e);
+    void is_clic_hard(sfVector2i position_mouse, element *e);
+    
 #endif /* !MY_HUNTER_H_ */

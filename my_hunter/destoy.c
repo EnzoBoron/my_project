@@ -20,11 +20,11 @@ void destroy_gameplay(spidy_annimation *s, element *e, life *l)
 
 void destroy_all(element *e)
 {
-    sfText_destroy(e->text_esay);
-    sfText_destroy(e->text_medium);
-    sfText_destroy(e->text_hard);
+    // sfText_destroy(e->text_esay);
+    // sfText_destroy(e->text_medium);
+    // sfText_destroy(e->text_hard);
     sfMusic_destroy(e->music_acceuil);
-    sfWindow_destroy(e->win);
+    // sfRenderWindow_destroy(e->win);
 }
 
 int my_strlen_int(int nb)
@@ -57,17 +57,11 @@ char * transform_in_char(int nb)
 
 int second_verification_file(int a, sfImage *o)
 {
-    o = sfImage_createFromFile("asset/spidy.jpg");
+    o = sfImage_createFromFile("asset/spidy.png");
     if (!o) return 84;
-    o = sfImage_createFromFile("asset/spidy.jpg");
+    o = sfImage_createFromFile("asset/sprite_one.png");
     if (!o) return 84;
-    o = sfImage_createFromFile("asset/sprite_one.jpg");
-    if (!o) return 84;
-    o = sfImage_createFromFile("asset/sprite_two.jpg");
-    if (!o) return 84;
-    o = sfImage_createFromFile("font/Mightyspidey-pmaa.ttf");
-    if (!o) return 84;
-    o = sfImage_createFromFile("music/music_acceuil.ogg");
+    o = sfImage_createFromFile("asset/sprite_two.png");
     if (!o) return 84;
     o = sfImage_createFromFile("asset/sprite_sheet.png");
     if (!o) return 84;

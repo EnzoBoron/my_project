@@ -52,7 +52,7 @@ sfText *create_text(char *name)
     sfText* text_esay;
     sfFont* font;
 
-    font = sfFont_createFromFile("font/Mightyspidey-pmaa.ttf");
+    font = sfFont_createFromFile("font/Mightyspidey.ttf");
     text_esay = sfText_create();
     sfText_setColor(text_esay, sfBlack);
     sfText_setString(text_esay, name);

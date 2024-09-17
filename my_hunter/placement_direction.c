@@ -48,7 +48,7 @@ void print_score(life *l)
     sfText *score_number;
     sfFont* font;
 
-    font = sfFont_createFromFile("font/Mightyspidey-pmaa.ttf");
+    font = sfFont_createFromFile("font/Mightyspidey.ttf");
     score_number = sfText_create();
     sfText_setColor(score_number, sfBlack);
     sfText_setString(score_number, "a");

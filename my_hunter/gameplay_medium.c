@@ -9,7 +9,7 @@
 
 void shoot_ball_med(life *l,  element *e, sfSprite *ball)
 {
-    e->pos_mouse = sfMouse_getPosition(e->win);
+    e->pos_mouse = sfMouse_getPositionRenderWindow(e->win);
     sfFloatRect size_ball = sfSprite_getGlobalBounds(ball);
     if (e->pos_mouse.y >= size_ball.top &&
     e->pos_mouse.y <= (size_ball.top + size_ball.height))
