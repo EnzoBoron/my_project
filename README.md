@@ -5,10 +5,10 @@ This is my work:
 Here are the most interesting programs that I have designed.
 
 To use the program, follow these steps: 
-1) open a terminal.
-2) type "git clone" followed by the SSH key.
-3) run the "make" command.
-4) run "./program name -h".
+1) open a new terminal.
+2) Write "git clone" followed by the SSH key.
+3) run the "make" command inside.
+4) If you need help, you can run "./program name -h".
 
 The folder "Gam_jam" contains a 2D game where the objective is to eliminate all targets before the time runs out. The project was designed during the Epitech game jam in 2023.
 
