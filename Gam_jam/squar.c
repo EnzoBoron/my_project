@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <time.h>
 
+
 typedef struct gam {
     sfRenderWindow* window;
     sfMusic* music;
@@ -34,6 +35,13 @@ typedef struct squa {
 } squar_t;
 
 sfClock *sec;
+
+int my_bulle_redirection(game_t *game, squar_t *squar);
+
+int nothing(void)
+{
+    return 0;
+}
 
 void create_window(int x, int y, game_t *game)
 {
@@ -124,7 +132,7 @@ squar_t *done_number(squar_t *squar)
 squar_t *click_squar(squar_t *squar, game_t *game)
 {
     int save = game->score + 1;
-    sfVector2i pos = sfMouse_getPosition(game->window);
+    sfVector2i pos = sfMouse_getPositionRenderWindow(game->window);
     for (squar_t *tmp = squar; tmp != NULL; tmp = tmp->next)
         if (game->event.type == sfEvtMouseButtonPressed && (pos.x - tmp->pos_x) * (pos.x - tmp->pos_x) + (pos.y - tmp->pos_y) * (pos.y - tmp->pos_y) <= tmp->radus * tmp->radus) {
             sfCircleShape_setPosition(tmp->circle, (sfVector2f){-200, -200});
@@ -263,11 +271,6 @@ int loop_game(game_t *game, squar_t *squar)
         squar = get_time(squar, game);
         sfRenderWindow_display(game->window);
     }
-}
-
-int nothing(void)
-{
-    return 0;
 }
 
 int accueil_space(game_t *game)

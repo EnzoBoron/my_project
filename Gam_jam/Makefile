@@ -26,7 +26,7 @@ flag:
 	$(MR)
 
 pexe:
-	 gcc -fPIC -c squar.c
+	gcc -fPIC -c squar.c
 	gcc -shared -o squar.so squar.o
 
 debug:
