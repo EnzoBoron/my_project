@@ -1,4 +1,4 @@
-# my_project
+# my_projects
 This is my work:
 
 Here are the most interesting programs that I have designed.
