@@ -20,10 +20,6 @@ The folder "my_hunter" is a game that reproduces the concept of the famous game 
 
 The folder "my_ls" contains a program that reproduces the functionality of the "ls" command.
 
-The folder "my_radar" contains a program that simulates air traffic.
-
-The folder "pushswap" contains a program that sorts numbers.
-
 Thanks for reading
 
 linkedin: https://www.linkedin.com/in/enzo-boron/
